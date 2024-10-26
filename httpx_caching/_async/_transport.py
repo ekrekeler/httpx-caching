@@ -19,9 +19,9 @@ class AsyncCachingTransport(httpx.AsyncBaseTransport):
     def __init__(
         self,
         transport: httpx.AsyncBaseTransport,
-        cache: AsyncDictCache = None,
+        cache: Optional[AsyncDictCache] = None,
         cache_etags: bool = True,
-        heuristic: BaseHeuristic = None,
+        heuristic: Optional[BaseHeuristic] = None,
         cacheable_methods: Iterable[str] = ("GET",),
         cacheable_status_codes: Iterable[int] = (
             200,
@@ -103,7 +103,7 @@ class AsyncCachingTransport(httpx.AsyncBaseTransport):
             status_code=response.status_code,
             headers=response.headers,
             stream=response.stream,  # type: ignore
-            extensions=response.extensions,
+            extensions=response.extensions,  # type: ignore
         )
 
     @aio_handler.register

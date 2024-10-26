@@ -19,9 +19,9 @@ class SyncCachingTransport(httpx.BaseTransport):
     def __init__(
         self,
         transport: httpx.BaseTransport,
-        cache: SyncDictCache = None,
+        cache: Optional[SyncDictCache] = None,
         cache_etags: bool = True,
-        heuristic: BaseHeuristic = None,
+        heuristic: Optional[BaseHeuristic] = None,
         cacheable_methods: Iterable[str] = ("GET",),
         cacheable_status_codes: Iterable[int] = (
             200,
@@ -103,7 +103,7 @@ class SyncCachingTransport(httpx.BaseTransport):
             status_code=response.status_code,
             headers=response.headers,
             stream=response.stream,  # type: ignore
-            extensions=response.extensions,
+            extensions=response.extensions,  # type: ignore
         )
 
     @io_handler.register
